@@ -1,0 +1,131 @@
+        sel = ["otu_id",Samples_Metadata.SAMPLEID]
+    results = session.query(*sel).filter(Samples_Metadata.SAMPLEID == sample).all()
+
+    sample_data = {}
+    for result in results:
+        sample_data["otu_id"] = result[0]
+        sample_data["sample_values"] = result[1]
+    
+    
+    @app.route('/wfreq/<sample>')
+    def wfreq(sample):
+        """Weekly Washing Frequency as a number.
+
+        Args: Sample in the format: `BB_940`
+
+        Returns an integer value for the weekly washing frequency `WFREQ`
+        """
+        "sample_id = [------table_name-----.column, ] 
+        results = db.session.query(SamplesMetadata.wfreq).filter_by(SAMPLE_ID = sample_id).all()
+
+        return jsonify(results)
+
+
+
+
+
+
+# @app.route('/names')
+# def name():
+#     """List of sample names.
+
+#     Returns a list of sample names in the format
+#     [
+#         "BB_940",
+#         "BB_941",
+#         "BB_943",
+#         "BB_944",
+#         "BB_945",
+#         "BB_946",
+#         "BB_947",
+#         ...
+#     ]
+
+#     """
+
+#     return 
+
+@app.route('/otu')
+def otu():
+    """List of OTU descriptions.
+
+    Returns a list of OTU descriptions in the following format
+
+    [
+        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
+        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
+        "Bacteria",
+        "Bacteria",
+        "Bacteria",
+        ...
+    ]
+    ]
+    """
+    results = db.session.query(Otu.lowest_taxonomic_unit_found).all()
+
+    return jsonify(results)
+
+# @app.route('/metadata/<sample>')
+# def metadata(sample):
+#     """MetaData for a given sample.
+
+#     Args: Sample in the format: `BB_940`
+
+#     Returns a json dictionary of sample metadata in the format
+
+#     {
+#         AGE: 24,
+#         BBTYPE: "I",
+#         ETHNICITY: "Caucasian",
+#         GENDER: "F",
+#         LOCATION: "Beaufort/NC",
+#         SAMPLEID: 940
+#     }
+#     """
+#     sample_id = "940"
+#     results = db.session.query(SamplesMetadata).filter_by(SAMPLE_ID = sample_id).all()
+
+#     return jsonify(results)
+
+# @app.route('/wfreq/<sample>')
+# def wfreq(sample):
+#     """Weekly Washing Frequency as a number.
+
+#     Args: Sample in the format: `BB_940`
+
+#     Returns an integer value for the weekly washing frequency `WFREQ`
+#     """
+#     sample_id = "940"
+#     results = db.session.query(SamplesMetadata.wfreq).filter_by(SAMPLE_ID = sample_id).all()
+
+#     return jsonify(results)
+
+# @app.route('/samples/<sample>')
+# def samples(sample):
+#     """OTU IDs and Sample Values for a given sample.
+
+#     Sort your Pandas DataFrame (OTU ID and Sample Value)
+#     in Descending Order by Sample Value
+
+#     Return a list of dictionaries containing sorted lists  for `otu_ids`
+#     and `sample_values`
+
+#     [
+#         {
+#             otu_ids: [
+#                 1166,
+#                 2858,
+#                 481,
+#                 ...
+#             ],
+#             sample_values: [
+#                 163,
+#                 126,
+#                 113,
+#                 ...
+#             ]
+#         }
+#     ]
+#     """
+
+#     return 
